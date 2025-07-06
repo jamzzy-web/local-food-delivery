@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Restaurant Menu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #eafaf1;
+    }
+
+    header {
+      background-color: #00a859;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 22px;
+      font-weight: 600;
+    }
+
+    .menu-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 20px;
+      padding: 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .menu-item {
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      padding: 10px;
+      text-align: center;
+    }
+
+    .menu-item img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .menu-item h3 {
+      margin: 10px 0 5px;
+      font-size: 18px;
+      color: #333;
+    }
+
+    .menu-item p {
+      margin: 5px 0 10px;
+      color: #666;
+    }
+
+    .menu-item button {
+      background-color: #00a859;
+      color: white;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .menu-item button:hover {
+      background-color: #008f4d;
+    }
+
+    .go-cart {
+      text-align: center;
+      margin: 20px;
+    }
+
+    .go-cart a {
+      text-decoration: none;
+      background-color: #00a859;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    .go-cart a:hover {
+      background-color: #008f4d;
+    }
+  </style>
+</head>
+<body>
+
+  <header id="restaurantName">Menu</header>
+
+  <div class="menu-container" id="menuItems"></div>
+
+  <div class="go-cart">
+    <a href="cart.html">🛒 Go to Cart</a>
+  </div>
+
+  <script>
+    const menus = {
+      "Mama Mboga Kitchen": [
+        { name: "Ugali & Sukuma", price: 100, image: "images/ugali&skuma.jpg" },
+        { name: "Chapati & Ndengu", price: 120, image: "images/chapati&ndengu.jpg" },
+        { name: "Boiled Sweet Potatoes", price: 60, image: "images/boiled sweetpotatoes.jpg" }
+      ],
+      "Chapati Central": [
+        { name: "Chapati & Beans", price: 90, image: "images/chapati&beans.jpg" },
+        { name: "Chapati & Eggs", price: 80, image: "images/chapati&eggs.jpg" },
+        { name: "Chapati", price: 40, image: "images/chapati.jpg" }
+      ],
+      "Nyama Zone": [
+        { name: "Nyama Choma", price: 250, image: "images/nyama choma.jpg" },
+        { name: "Ugali", price: 50, image: "images/ugali.jpg" },
+        { name: "Beef Stew", price: 180, image: "images/beef stew.jpg" }
+      ],
+      "Samosa Station": [
+        { name: "Samosa (Beef)", price: 30, image: "images/beef samosa.jpg" },
+        { name: "Kachumbari", price: 25, image: "images/kachumbari.jpg" },
+        { name: "Chilli sauce", price: 20, image: "images/chilli sauce.jpg" }
+      ],
+      "Tamu Tamu Bites": [
+        { name: "Smokie Pasua", price: 60, image: "images/smokie pasua.jpg" },
+        { name: "Mutura Slice", price: 50, image: "images/mutura.jpg" },
+        { name: "Chips Masala", price: 150, image: "images/chipsmasala.jpg" }
+      ],
+      "Supu Spot": [
+        { name: "Beef Soup", price: 100, image: "images/beef stew.jpg" },
+        { name: "Matumbo", price: 120, image: "images/matumbo stew.jpg" },
+        { name: "Mukimo with Stew", price: 160, image: "images/mukimo with beef stew.jpg" }
+      ],
+      "Coastal Delights": [
+        { name: "Veggie Pilau", price: 140, image: "images/veggie pilau.jpg" },
+        { name: "Viazi Karai", price: 80, image: "images/viazi karai.jpg" },
+        { name: "Wali", price: 200, image: "images/wali wa nazi.jpg" }
+      ],
+      "Matoke Manor": [
+        { name: "Mukimo", price: 90, image: "images/mukimo with beef stew.jpg" },
+        { name: "Soda", price: 80, image: "images/soda.jpg" },
+        { name: "Matoke with Beef", price: 150, image: "images/matoke with beef stew.jpg" }
+      ],
+      "Chapo Deli": [
+        { name: "Chapo Dondo", price: 90, image: "images/chapati&beans.jpg" },
+        { name: "Chapo Ndengu", price: 95, image: "images/chapati&ndengu.jpg" },
+        { name: "Chapo Mayai", price: 100, image: "images/chapati&eggs.jpg" }
+      ],
+      "Githeri Grill": [
+        { name: "Plain Githeri", price: 80, image: "images/githeri.jpg" },
+        { name: "Avocado", price: 100, image: "images/Avacado slices.jpg" },
+        { name: "Juice", price: 50, image: "images/fruit juice.jpg" }
+      ],
+      "Mandazi Magic": [
+        { name: "Mandazi (2 pcs)", price: 30, image: "images/mandazi.jpg" },
+        { name: "Mandazi & Tea", price: 60, image: "images/mahamri & chai.jpg" },
+        { name: "Mahamri", price: 40, image: "images/tea&mandazi.jpg" }
+      ],
+      "Ugali Hub": [
+        { name: "Ugali & Sukuma", price: 90, image: "images/ugali&skuma.jpg" },
+        { name: "Ugali & Beef", price: 140, image: "images/ugali.jpg" },
+        { name: "Kachumbari", price: 100, image: "images/kachumbari.jpg" }
+      ],
+      "Pilau Palace": [
+        { name: "Pilau Plain", price: 100, image: "images/veggie pilau.jpg" },
+        { name: "Pilau & Beef", price: 150, image: "images/beef pilau.jpg" },
+        { name: "Pilau & Salad", price: 120, image: "images/vegetable curry with rice.jpg" }
+      ],
+      "Tea Time": [
+        { name: "Chai Ya Maziwa", price: 20, image: "images/tea.jpg" },
+        { name: "Sausage & Eggs", price: 30, image: "images/sausages&eggs.jpg" },
+        { name: "Tea & Mandazi", price: 60, image: "images/tea&mandazi.jpg" }
+      ],
+      "Spoon & Fork": [
+        { name: "Wali Wa Nazi", price: 100, image: "images/wali wa nazi.jpg" },
+        { name: "Rice & Cabbage", price: 90, image: "images/vegetable curry with rice.jpg" },
+        { name: "Masala Fries", price: 120, image: "images/chipsmasala.jpg" }
+      ],
+      "Beans Bistro": [
+        { name: "Beans & Chapati", price: 90, image: "images/chapati&beans.jpg" },
+        { name: "Samaki Wa Nazi", price: 100, image: "images/samaki wa nazi.jpg" },
+        { name: "Potato Bhajia", price: 110, image: "images/potato bhajia.jpg" }
+      ],
+      "Smokie Sausage Shack": [
+        { name: "Smokie Plain", price: 30, image: "images/smokie pasua.jpg" },
+        { name: "Sausages", price: 60, image: "images/sausages&eggs.jpg" },
+        { name: "Mango juice", price: 70, image: "images/mango juice.jpg" }
+      ],
+      "Wali Street Kitchen": [
+        { name: "Kuku Paka", price: 90, image: "images/kuku paka.jpg" },
+        { name: "Samaki Wa Nazi", price: 120, image: "images/samaki wa nazi.jpg" },
+        { name: "Fried Fish", price: 140, image: "images/fried fish.jpg" }
+      ],
+      "The Boiled Egg": [
+        { name: "Boiled Egg", price: 30, image: "images/boiled eggs.jpg" },
+        { name: "Egg & Chapati", price: 50, image: "images/chapati&eggs.jpg" },
+        { name: "Egg Sausage", price: 80, image: "images/sausages&eggs.jpg" }
+      ]
+    };
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const restaurant = urlParams.get("name");
+    document.getElementById("restaurantName").textContent = restaurant;
+
+    const menu = menus[restaurant] || [];
+    const container = document.getElementById("menuItems");
+
+    menu.forEach(item => {
+      container.innerHTML += `
+        <div class="menu-item">
+          <img src="${item.image}" alt="${item.name}">
+          <h3>${item.name}</h3>
+          <p>Ksh ${item.price}</p>
+          <button onclick="addToCart('${item.name}', ${item.price})">Add to Cart</button>
+        </div>
+      `;
+    });
+
+    function addToCart(name, price) {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.push({ name, price });
+      localStorage.setItem("cart", JSON.stringify(cart));
+      alert(`${name} added to cart`);
+    }
+  </script>
+</body>
+</html>
+
+
