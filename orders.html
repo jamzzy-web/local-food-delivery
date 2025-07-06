@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Order History</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #eafaf1;
+    }
+
+    header {
+      background-color: #00a859;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 22px;
+      font-weight: 600;
+    }
+
+    .order-container {
+      max-width: 800px;
+      margin: 30px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .order-card {
+      border-bottom: 1px solid #eee;
+      padding: 15px 0;
+    }
+
+    .order-card:last-child {
+      border-bottom: none;
+    }
+
+    .order-card h3 {
+      margin: 0 0 5px;
+      font-size: 16px;
+      color: #00a859;
+    }
+
+    .order-card p {
+      margin: 5px 0;
+      font-size: 14px;
+      color: #444;
+    }
+
+    .order-card ul {
+      padding-left: 20px;
+      margin: 5px 0;
+    }
+
+    .order-card ul li {
+      font-size: 14px;
+    }
+
+    .no-orders {
+      text-align: center;
+      color: #888;
+      font-size: 16px;
+      margin-top: 40px;
+    }
+
+    .back {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .back a {
+      background-color: #00a859;
+      color: white;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      display: inline-block;
+    }
+
+    .back a:hover {
+      background-color: #008f4d;
+    }
+  </style>
+</head>
+<body>
+
+  <header>Your Order History</header>
+
+  <div class="order-container" id="orders"></div>
+
+  <div class="back">
+    <a href="index.html">⬅️ Back to Homepage</a>
+  </div>
+
+  <script>
+    const orderList = JSON.parse(localStorage.getItem("orderHistory")) || [];
+    const container = document.getElementById("orders");
+
+    if (orderList.length === 0) {
+      container.innerHTML = '<p class="no-orders">You have no past orders yet.</p>';
+    } else {
+      orderList.reverse().forEach(order => {
+        const items = order.items.map(i => `<li>${i.name} - Ksh ${i.price}</li>`).join("");
+        container.innerHTML += `
+          <div class="order-card">
+            <h3>🕒 ${order.time}</h3>
+            <p>📍 Delivered to: ${order.address}</p>
+            <p>📦 Status: ${order.status}</p>
+            <p>🧾 Items:</p>
+            <ul>${items}</ul>
+            <p><strong>Total: Ksh ${order.total}</strong></p>
+          </div>
+        `;
+      });
+    }
+  </script>
+</body>
+</html>
